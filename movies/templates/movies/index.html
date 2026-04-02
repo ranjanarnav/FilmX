@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FilmX — Stream Premium Movies & Shows</title>
+  <style>
+/* Base reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, sans-serif;
+  color: #e6e6e6;
+  background: radial-gradient(1200px 600px at 50% 10%, rgba(255, 0, 0, 0.08), transparent 60%),
+              radial-gradient(800px 400px at 80% 70%, rgba(255, 0, 0, 0.08), transparent 60%),
+              linear-gradient(180deg, #0b0b0f 0%, #0a0a10 40%, #07070c 100%);
+  font-size: 16px; /* slightly bigger than original */
+}
+
+/* Top bar */
+.nav {
+  height: 72px; /* moderate increase */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  color: #fff;
+  font-size: 34px; /* slightly larger brand */
+  text-decoration: none;
+  letter-spacing: 0.25px;
+}
+
+.brand svg {
+  width: 60px;
+  height: 60px;
+  fill: #ff2a2a;
+}
+
+.top-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.btn-small {
+  background: #1a1a22;
+  border: 1px solid #2b2b36;
+  color: #d0d0d8;
+  padding: 10px 14px; /* moderate button size */
+  border-radius: 7px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.btn-small:hover {
+  border-color: #444457;
+  color: #fff;
+}
+
+/* Hero */
+.hero {
+  min-height: calc(100vh - 72px);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 50px 20px 60px;
+}
+
+.hero-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  margin: 0 0 12px 0;
+  font-size: clamp(32px, 4vw, 50px); /* moderate hero title */
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.hero p.lead {
+  margin: 0 0 20px 0;
+  color: #bdbdc7;
+  font-size: clamp(15px, 2vw, 16px); /* moderate lead text */
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px; /* moderate CTA size */
+  border-radius: 9px;
+  text-decoration: none;
+  color: #fff;
+  background: #e50914;
+  border: 1px solid #ff3a44;
+  box-shadow: 0 8px 24px rgba(229, 9, 20, 0.35);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.cta:hover {
+  filter: brightness(1.07);
+}
+
+.cta svg {
+  width: 16px;
+  height: 16px;
+  fill: #fff;
+}
+
+/* Features */
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px; /* moderate spacing */
+  margin-top: 80px;
+}
+
+.feature {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  color: #c7c7d1;
+}
+
+.feature .icon-wrap {
+  width: 50px; /* moderate icon size */
+  height: 50px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: rgba(229, 9, 20, 0.12);
+  border: 1px solid rgba(229, 9, 20, 0.35);
+}
+
+.feature svg {
+  width: 24px;
+  height: 24px;
+  fill: #ff2a2a;
+}
+
+.feature-title {
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 16px;
+}
+
+.feature-desc {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #9e9eab;
+  text-align: center;
+}
+
+/* Footer */
+.footer {
+  border-top: 1px solid #1b1b22;
+  color: #7f7f8c;
+  text-align: center;
+  padding: 16px 16px;
+  font-size: 13px;
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .features {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .hero h1 {
+    font-size: clamp(28px, 8vw, 40px);
+  }
+
+  .hero p.lead {
+    font-size: clamp(14px, 4vw, 16px);
+  }
+}
+
+  </style>
+</head>
+
+<body>
+  <!-- Top bar -->
+  <header class="nav" role="navigation">
+    <a href="#" class="brand" aria-label="FilmX Home">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+        <rect x="7.5" y="7.5" width="3.5" height="3.5" fill="#0b0b0f"></rect>
+        <rect x="13" y="7.5" width="3.5" height="3.5" fill="#0b0b0f"></rect>
+        <rect x="7.5" y="13" width="9" height="3.5" fill="#0b0b0f"></rect>
+      </svg>
+      FilmX
+    </a>
+    <nav class="top-links">
+      <a class="btn-small" href="/browse">Browse</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <main class="hero">
+    <div class="hero-inner">
+      <h1>Stream <span style="color:#ffffff;">Premium</span> Movies &amp; Shows</h1>
+      <p class="lead">Discover thousands of movies and TV shows. Watch anywhere, anytime on FilmX.</p>
+      <a class="cta" href="/browse" aria-label="Start Watching">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 3l14 9-14 9V3z"></path>
+        </svg>
+        Start Watching
+      </a>
+
+      <!-- Features -->
+      <section class="features" aria-label="Key features">
+        <div class="feature">
+          <div class="icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 3.3l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.5-2.9-5.5 2.9 1-6.1-4.4-4.3 6.1-.9 2.7-5.5z"></path>
+            </svg>
+          </div>
+          <div class="feature-title">Premium Content</div>
+          <div class="feature-desc">Exclusive movies and shows in HD quality.</div>
+        </div>
+
+        <div class="feature">
+          <div class="icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M16 11c1.9 0 3.5-1.6 3.5-3.5S17.9 4 16 4s-3.5 1.6-3.5 3.5S14.1 11 16 11zm-8 0c1.9 0 3.5-1.6 3.5-3.5S9.9 4 8 4 4.5 5.6 4.5 7.5 6.1 11 8 11zm0 2c-2.7 0-8 1.4-8 4.1V20h16v-2.9c0-2.7-5.3-4.1-8-4.1zm8 0c-.5 0-1 .1-1.5.2 1.8.9 3.5 2.3 3.5 3.8V20H24v-2.9c0-2.7-5.3-4.1-8-4.1z"></path>
+            </svg>
+          </div>
+          <div class="feature-title">Multiple Profiles</div>
+          <div class="feature-desc">Create profiles for family members.</div>
+        </div>
+
+        <div class="feature">
+          <div class="icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 100 20h10v-4h-6.2A10 10 0 0012 2zm-3 6a2 2 0 110-4 2 2 0 010 4zm6 0a2 2 0 110-4 2 2 0 010 4zM9 14a2 2 0 11-4 0 2 2 0 014 0zm10-2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+          </div>
+          <div class="feature-title">Latest Releases</div>
+          <div class="feature-desc">Get access to the newest movies and series.</div>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+
+</html>

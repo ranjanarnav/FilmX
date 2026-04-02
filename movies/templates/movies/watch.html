@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}{{ movie.title }}{% endblock %}
+{% block content %}
+<style>
+  body {
+    background-color: #141414;
+    color: #fff;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  .watch-page {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 20px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.9) 100%);
+  }
+  .watch-page video {
+    width: 80%;
+    max-width: 1200px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.7);
+    margin-bottom: 30px;
+  }
+  .movie-info {
+    text-align: center;
+    max-width: 900px;
+  }
+  .movie-info h2 {
+    font-size: 3em;
+    margin: 0 0 20px;
+  }
+  .movie-info p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #ccc;
+  }
+  @media (max-width: 768px) {
+    .watch-page video {
+      width: 100%;
+    }
+    .movie-info h2 {
+      font-size: 2em;
+    }
+    .movie-info p {
+      font-size: 1em;
+    }
+  }
+</style>
+
+<div class="watch-page">
+  <video controls autoplay poster="{{ movie.thumbnail.url }}">
+    <source src="{{ movie.video_file.url }}" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+  <div class="movie-info">
+    <h2>{{ movie.title }}</h2>
+    <p>{{ movie.description }}</p>
+  </div>
+</div>
+{% endblock %}

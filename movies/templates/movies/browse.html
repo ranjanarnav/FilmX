@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+{% block title %}Browse - FilmX{% endblock %}
+
+{% block content %}
+<!-- Browse Header -->
+<section class="browse-header">
+  <h1>Browse Movies & Shows</h1>
+  <form method="get">
+    <input type="text" name="q" placeholder="Search movies and shows..." value="{{ request.GET.q }}">
+    <select name="genre">
+      <option value="">All Genres</option>
+      {% for category in categories %}
+        <option value="{{ category.id }}" {% if request.GET.genre == category.id|stringformat:"s" %}selected{% endif %}>
+          {{ category.name }}
+        </option>
+      {% endfor %}
+    </select>
+    <select name="sort">
+      <option value="latest" {% if request.GET.sort == "latest" %}selected{% endif %}>Sort By: Latest</option>
+      <option value="oldest" {% if request.GET.sort == "oldest" %}selected{% endif %}>Oldest</option>
+      <option value="title" {% if request.GET.sort == "title" %}selected{% endif %}>Title</option>
+    </select>
+    <button type="submit">Apply</button>
+  </form>
+</section>
+
+<!-- Movie Grid -->
+<section class="movie-grid">
+  {% if movies %}
+    {% for movie in movies %}
+      <a href="{% url 'watch' movie.id %}" class="movie-card">
+        <img src="{{ movie.thumbnail.url }}" alt="{{ movie.title }}">
+        <h3>{{ movie.title }}</h3>
+      </a>
+    {% endfor %}
+  {% else %}
+    <div class="empty">
+      <i>🎥</i>
+      <h3>No Videos Available</h3>
+      <p>Check back later for new content</p>
+      <a href="{% url 'home' %}" class="btn-primary">Back to Home</a>
+    </div>
+  {% endif %}
+</section>
+
+<style>
+/* --- Nav Bar --- */
+.nav {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: #0b0b0f;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  color: #fff;
+  font-size: 34px;
+  text-decoration: none;
+  letter-spacing: 0.25px;
+}
+
+.brand svg {
+  width: 60px;
+  height: 60px;
+  fill: #ff2a2a;
+}
+
+.top-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.btn-small {
+  background: #1a1a22;
+  border: 1px solid #2b2b36;
+  color: #d0d0d8;
+  padding: 10px 14px;
+  border-radius: 7px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.btn-small:hover {
+  border-color: #444457;
+  color: #fff;
+}
+
+/* --- Browse Header --- */
+.browse-header {
+  text-align: center;
+  margin: 40px 16px 30px;
+}
+
+.browse-header h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.browse-header form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.browse-header input[type="text"],
+.browse-header select {
+  padding: 10px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #2b2b36;
+  background: #1a1a22;
+  color: #e6e6e6;
+  outline: none;
+}
+
+.browse-header input::placeholder { color: #bdbdc7; }
+
+.browse-header button {
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 6px;
+  border: none;
+  background: #e50914;
+  color: #fff;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.browse-header button:hover { filter: brightness(1.08); }
+
+/* --- Movie Grid --- */
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
+  padding: 0 16px 40px;
+}
+
+.movie-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #ffffff;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #0a0a10;
+}
+
+.movie-card img {
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  border-bottom: 1px solid #2b2b36;
+}
+
+.movie-card h3 {
+  margin: 10px 0;
+  font-size: 14px;
+  text-align: center;
+}
+
+.movie-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(229, 9, 20, 0.35);
+}
+
+/* --- Empty State --- */
+.empty {
+  text-align: center;
+  color: #9e9eab;
+  margin-top: 80px;
+}
+
+.empty i {
+  font-size: 60px;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.empty h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+.empty p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.empty .btn-primary {
+  display: inline-block;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  background: #e50914;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: filter 0.2s;
+}
+
+.empty .btn-primary:hover { filter: brightness(1.08); }
+
+/* --- Responsive --- */
+@media (max-width: 720px) {
+  .browse-header h1 { font-size: 28px; }
+  .movie-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
+  .empty i { font-size: 50px; }
+}
+</style>
+{% endblock %}
